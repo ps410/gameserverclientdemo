@@ -43,6 +43,7 @@ function tick()
 {
     randomizePos();
     objectsstate = {obj1 : obj1, 'obj2' : obj2, 'obj3' : obj3};
+    io.sockets.emit('updatepos', objectsstate);
 }
 
 
@@ -53,13 +54,7 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    setInterval(
-
-            function(){
-                socket.emit('updatepos', objectsstate);
-            }
-        ,
-        tickrate);
+    //do nothing
 });
 
 setInterval(function(){tick()}, tickrate);
