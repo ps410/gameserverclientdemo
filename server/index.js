@@ -51,7 +51,7 @@ io.on('connection', function(socket){
     setInterval(
 
             function(){
-                console.log(tick())
+                socket.emit('updatepos', tick());
             }
         ,
         11);
