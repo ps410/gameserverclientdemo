@@ -40,7 +40,6 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/anime.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     var obj1 =
         {
@@ -84,7 +83,7 @@
 
     }
 
-    $(function () {
+    function init () {
        // setInitPos();
         var socket = io();
         socket.on('updatepos', function(msg){
@@ -99,7 +98,9 @@
             console.log(msg.obj3);
             updatePosFromServer();
         });
-    });
+    };
+
+    init();
 </script>
 </body>
 </html>
