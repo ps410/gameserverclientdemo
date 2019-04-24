@@ -7,6 +7,8 @@ var port = process.env.PORT || 3000;
 //how often the server updates the client in milliseconds
 var tickrate = 200;
 
+var objectsstate = null;
+
 var obj1 =
     {
         position_x: 0,
@@ -40,7 +42,7 @@ function randomizePos()
 function tick()
 {
     randomizePos();
-    return {obj1 : obj1, 'obj2' : obj2, 'obj3' : obj3};
+    objectsstate = {obj1 : obj1, 'obj2' : obj2, 'obj3' : obj3};
 }
 
 
@@ -54,12 +56,13 @@ io.on('connection', function(socket){
     setInterval(
 
             function(){
-                socket.emit('updatepos', tick());
+                socket.emit('updatepos', objectsstate);
             }
         ,
         tickrate);
 });
 
+setInterval(function(){tick()}, tickrate);
 http.listen(port, function(){
     console.log('listening on *:' + port);
 });
