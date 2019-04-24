@@ -2,17 +2,102 @@
 <html>
 <head>
     <title>Test Client Server Updates</title>
+    <style>
+        #obj1
+        {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            opacity: 1;
+        }
+
+        #obj2
+        {
+            width: 100px;
+            height: 100px;
+            background: green;
+            position: absolute;
+            opacity: 1;
+        }
+
+        #obj3
+        {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background: blue;
+            position: absolute;
+            opacity: 1;
+        }
+
+    </style>
 </head>
 <body>
+<div id="obj1"></div>
+<div id="obj2"></div>
+<div id="obj3"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/anime.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+    var obj1 =
+        {
+            position_x: 0,
+            position_y: 0,
+        };
+
+    var obj2 =
+        {
+            position_x: 0,
+            position_y: 300,
+        };
+
+    var obj3 =
+        {
+            position_x: 0,
+            position_y: 600,
+        };
+
+
+    function updatePosFromServer()
+    {
+        anime({
+            targets: '#obj1',
+            translateX: obj1.position_x,
+            translateY: obj1.position_y,
+        });
+
+        anime({
+            targets: '#obj2',
+            translateX: obj2.position_x,
+            translateY: obj2.position_y,
+        });
+
+        anime({
+            targets: '#obj3',
+            translateX: obj3.position_x,
+            translateY: obj3.position_y,
+        });
+
+
+    }
+
     $(function () {
+       // setInitPos();
         var socket = io();
         socket.on('updatepos', function(msg){
-           console.log(msg);
+            obj1 = msg.obj1;
+            obj2 = msg.obj2;
+            obj3 = msg.obj3;
+            console.log("updating obj1");
+            console.log(msg.obj1);
+            console.log("updating obj2");
+            console.log(msg.obj2);
+            console.log("updating obj3");
+            console.log(msg.obj3);
+            updatePosFromServer();
         });
     });
 </script>

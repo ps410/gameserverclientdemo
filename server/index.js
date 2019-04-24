@@ -37,7 +37,7 @@ function randomizePos()
 function tick()
 {
     randomizePos();
-    return [obj1, obj2, obj3];
+    return {obj1 : obj1, 'obj2' : obj2, 'obj3' : obj3};
 }
 
 
@@ -54,7 +54,7 @@ io.on('connection', function(socket){
                 socket.emit('updatepos', tick());
             }
         ,
-        11);
+        1000);
 });
 
 http.listen(port, function(){
