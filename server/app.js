@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
 //how often the server updates the client in milliseconds
-var tickrate = 1000;
+var tickrate = 200;
 
 var obj1 =
     {
