@@ -4,6 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
+//how often the server updates the client in milliseconds
+var tickrate = 1000;
+
 var obj1 =
     {
         position_x: 0,
@@ -54,7 +57,7 @@ io.on('connection', function(socket){
                 socket.emit('updatepos', tick());
             }
         ,
-        1000);
+        tickrate);
 });
 
 http.listen(port, function(){
